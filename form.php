@@ -13,7 +13,6 @@ require_once 'header.php';
 if (isset($_POST['submit'])) {
 
     $country = ucfirst(mb_strtolower(trim($_POST['country'])));
-    var_dump($country);
     $statementexistornot = $pdo->prepare("SELECT * from countries WHERE name = :country_name");
     $statementexistornot->execute([
         'country_name' => $country
