@@ -1,7 +1,8 @@
 <?php
 $error = null;
+$signaturePassword = '$2y$12$N7zdxjLQgLz8BRUIz6H6c.jlANxDhtT2ocgQiSab5ciqwrj9yl9eu';
 if (!empty($_POST['user_name']) && !empty($_POST['password'])) {
-    if ($_POST['user_name'] === 'Root_user' && $_POST['password'] === 'WordPass') {
+    if ($_POST['user_name'] === 'Root_user' && password_verify($_POST['password'], $signaturePassword)) {
         session_start();
         $_SESSION['connect'] = 1;
         header('location: form.php');
