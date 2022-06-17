@@ -1,7 +1,7 @@
 <?php
 $error = null;
 if (!empty($_POST['user_name']) && !empty($_POST['password'])) {
-    if ($_POST['user_name'] === 'Anthony' && $_POST['password'] === 'Miéville') {
+    if ($_POST['user_name'] === 'Root_user' && $_POST['password'] === 'WordPass') {
         session_start();
         $_SESSION['connect'] = 1;
         header('location: form.php');
