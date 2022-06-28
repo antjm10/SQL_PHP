@@ -1,4 +1,5 @@
 <?php
+/*
 function is_connect (): bool {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -13,3 +14,4 @@ function force_user_connect (): void {
     }
 
 }
+*/

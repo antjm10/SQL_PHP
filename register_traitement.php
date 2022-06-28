@@ -27,7 +27,7 @@ if(isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password']
                         $password = hash('sha256', $password);
                         $ip = $_SERVER['REMOTE_ADDR'];
 
-                        $insert = $pdo->prepare('INSERT INTO registerUser(pseudo, email, password. ip)VALUES(:pseudo, :email, :password, :ip)');
+                        $insert = $pdo->prepare('INSERT INTO registerUser(pseudo, email, password, ip)VALUES(:pseudo, :email, :password, :ip)');
                         $insert->execute(array(
                             'pseudo' => $pseudo,
                             'email' => $email,
