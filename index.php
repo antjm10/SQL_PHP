@@ -1,16 +1,3 @@
-<?php
-
-session_start();
-$title = "Page d'accueil";
-require_once 'auth.php';
-
-if (isset($_POST['submit'])) {
-    header('location: login.php');
-
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
