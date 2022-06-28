@@ -6,15 +6,18 @@
 //        JOIN users U ON users_has_adresse.users_id_users = U.id_users");
 //        echo "{$row['first_name']} - {$row['last_name']} - {$row['birth_date']} - {$row['email']} - {$row['phone']} - {$row['civility']} - {$row['sex']}  - {$row['street']} - {$row['postal_code']} - {$row['city']} - {$row['name']} <br>";
 
-
-if (!isset($_SESSION['user'])) {
+session_start();
+require_once 'database_connecting.php'; // ajout connexion bdd
+require_once 'header.php';
+// si la session existe pas soit si l'on est pas connecté on redirige
+if(!isset($_SESSION['user'])){
     header('Location:index.php');
     die();
 }
 
-require_once 'auth.php';
-require 'database_connecting.php';
-require_once 'header.php';?>
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +26,7 @@ require_once 'header.php';?>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="data.css">
+    <link rel="stylesheet" href="">
     <title>Users list</title>
 </head>
 <body>
