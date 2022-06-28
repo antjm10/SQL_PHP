@@ -1,41 +1,37 @@
 <?php
-$error = null;
-$signaturePassword = '$2y$12$N7zdxjLQgLz8BRUIz6H6c.jlANxDhtT2ocgQiSab5ciqwrj9yl9eu';
-if (!empty($_POST['user_name']) && !empty($_POST['password'])) {
-    if ($_POST['user_name'] === 'Root_user' && password_verify($_POST['password'], $signaturePassword)) {
-        session_start();
-        $_SESSION['connect'] = 1;
-        header('location: form.php');
-    } else {
-        $error = "Identifiants incorrects";
-    }
-}
-/*
-require_once 'auth.php';
-if (is_connect()) {
-    header('location form.php');
-    exit();
-}
-*/
-?>
+session_start(); // Démarrage de la session
+require_once 'database_connecting.php'; // On inclut la connexion à la base de données
 
-<?php if ($error): ?>
-<div class="">
-    <?= $error ?>
-</div>
-<?php endif; ?>
+if(!empty($_POST['email']) && !empty($_POST['password'])) // Si il existe les champs email, password et qu'il sont pas vident
+{
+    // Patch XSS
+    $email = htmlspecialchars($_POST['email']);
+    $password = htmlspecialchars($_POST['password']);
 
-<form action="" method="post">
+    $email = strtolower($email); // email transformé en minuscule
 
-    <div class="form-groupe">
-        <input class="form-control" type="text" name="user_name" placeholder="user_name">
-    </div>
-    <div class="form-groupe">
-        <input class="form-control" type="password" name="password" placeholder="password">
-    </div>
-    <button type="submit" class="btn btn-primary">Connect</button>
-
-</form>
+    // On regarde si l'utilisateur est inscrit dans la table utilisateurs
+    $check = $bdd->prepare('SELECT pseudo, email, password, token FROM registerUser WHERE email = ?');
+    $check->execute(array($email));
+    $data = $check->fetch();
+    $row = $check->rowCount();
 
 
 
+    // Si > à 0 alors l'utilisateur existe
+    if($row > 0)
+    {
+        // Si le mail est bon niveau format
+        if(filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+            // Si le mot de passe est le bon
+            if(password_verify($password, $data['password']))
+            {
+                // On créer la session et on redirige sur landing.php
+                $_SESSION['user'] = $data['token'];
+                header('Location: form.php');
+                die();
+            }else{ header('Location: index.php?login_err=password'); die(); }
+        }else{ header('Location: index.php?login_err=email'); die(); }
+    }else{ header('Location: index.php?login_err=already'); die(); }
+}else{ header('Location: index.php'); die();} // si le formulaire est envoyé sans aucune données

@@ -1,58 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="antjm10"/>
 
-<?php
-    require_once 'database_connecting.php';
-
-    if(isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_retype']))
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Inscription</title>
+</head>
+<body>
+<div class="login-form">
+    <?php
+    if(isset($_GET['reg_err']))
     {
-        $pseudo = htmlspecialchars($_POST['pseudo']);
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
-        $password_retype = htmlspecialchars($_POST['password_retype']);
+        $err = htmlspecialchars($_GET['reg_err']);
 
-        $check = $pdo->prepare("SELECT pseudo, email, password FROM registerUser WHERE email = ?");
-        $check->execute(array($email));
-        $data = $check->fetch();
-        $row = $check->rowCount();
-
-        if($row == 0)
+        switch($err)
         {
-            if(strlen($pseudo) <= 100)
-            {
-                if(strlen($email) <= 100)
-                {
-                    if(filter_var($email, FILTER_VALIDATE_EMAIL))
-                    {
-                        if($password == $password_retype)
-                        {
-                            $password = hash('sha256', $password);
-                            $ip = $_SERVER['REMOTE_ADDR'];
+            case 'success':
+                ?>
+                <div class="alert alert-success">
+                    <strong>Succès</strong> inscription réussie !
+                </div>
+                <?php
+                break;
 
-                            $insert = $pdo->prepare('INSERT INTO registerUser(pseudo, email, password. ip)VALUES(:pseudo, :email, :password, :ip)');
-                            $insert->execute(array(
-                                'pseudo' => $pseudo,
-                                'email' => $email,
-                                'password' => $password,
-                                'ip' => $ip
-                            ));
+            case 'password':
+                ?>
+                <div class="alert alert-danger">
+                    <strong>Erreur</strong> mot de passe différent
+                </div>
+                <?php
+                break;
 
-                        }else header('location: register.php?reg_err=password');
-                    }else header('location: register.php?reg_err=email');
-                }else header('location: register.php?reg_err=email_length');
-            }else header('location: register.php?reg_err=pseudo_length');
-        }else header('location: register.php?reg_err=already');
+            case 'email':
+                ?>
+                <div class="alert alert-danger">
+                    <strong>Erreur</strong> email non valide
+                </div>
+                <?php
+                break;
 
+            case 'email_length':
+                ?>
+                <div class="alert alert-danger">
+                    <strong>Erreur</strong> email trop long
+                </div>
+                <?php
+                break;
 
+            case 'pseudo_length':
+                ?>
+                <div class="alert alert-danger">
+                    <strong>Erreur</strong> pseudo trop long
+                </div>
+            <?php
+            case 'already':
+                ?>
+                <div class="alert alert-danger">
+                    <strong>Erreur</strong> compte deja existant
+                </div>
+            <?php
+
+        }
     }
-?>
+    ?>
 
-
-
-
-
-
-
-
-
-
-
-
+    <form action="register_traitement.php" method="post">
+        <h2 class="text-center">Inscription</h2>
+        <div class="form-group">
+            <input type="text" name="pseudo" class="form-control" placeholder="Pseudo" required="required" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" class="form-control" placeholder="Email" required="required" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" class="form-control" placeholder="Mot de passe" required="required" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <input type="password" name="password_retype" class="form-control" placeholder="Re-tapez le mot de passe" required="required" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Inscription</button>
+        </div>
+    </form>
+</div>
+<style>
+    .login-form {
+        width: 340px;
+        margin: 50px auto;
+    }
+    .login-form form {
+        margin-bottom: 15px;
+        background: #f7f7f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+    .login-form h2 {
+        margin: 0 0 15px;
+    }
+    .form-control, .btn {
+        min-height: 38px;
+        border-radius: 2px;
+    }
+    .btn {
+        font-size: 15px;
+        font-weight: bold;
+    }
+</style>
+</body>
+</html>
