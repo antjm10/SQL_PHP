@@ -26,15 +26,11 @@ require_once 'auth.php';
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="form.php">Form</a>
-            <?php if (is_connect()): ?>
             <a class="navbar-item" href="data_list.php">Users list</a>
-            <?php endif ?>
         </div>
 
         <div class="navbar-end">
-                        <?php if (is_connect()): ?>
                             <a class="navbar-item" href="logout.php" >disconnect</a>
-                        <?php endif ?>
         </div>
     </div>
 </nav>

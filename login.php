@@ -11,12 +11,10 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) // Si il existe les ch
     $email = strtolower($email); // email transformé en minuscule
 
     // On regarde si l'utilisateur est inscrit dans la table utilisateurs
-    $check = $bdd->prepare('SELECT pseudo, email, password, token FROM registerUser WHERE email = ?');
+    $check = $pdo->prepare('SELECT pseudo, email, password, token FROM registerUser WHERE email = ?');
     $check->execute(array($email));
     $data = $check->fetch();
     $row = $check->rowCount();
-
-
 
     // Si > à 0 alors l'utilisateur existe
     if($row > 0)
@@ -29,9 +27,14 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) // Si il existe les ch
             {
                 // On créer la session et on redirige sur landing.php
                 $_SESSION['user'] = $data['token'];
-                header('Location: form.php');
-                die();
-            }else{ header('Location: index.php?login_err=password'); die(); }
-        }else{ header('Location: index.php?login_err=email'); die(); }
-    }else{ header('Location: index.php?login_err=already'); die(); }
-}else{ header('Location: index.php'); die();} // si le formulaire est envoyé sans aucune données
+                header('Location: landing.php');
+            }else{ header('Location: index.php?login_err=password');
+            }
+        }else{ header('Location: index.php?login_err=email');
+        }
+    }else{ header('Location: index.php?login_err=already');
+    }
+}else{ header('Location: index.php');
+}
+die(); // si le formulaire est envoyé sans aucune données
+

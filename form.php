@@ -4,8 +4,19 @@
 //phpinfo();
 
 session_start();
-require_once 'database_connecting.php';
-require_once 'auth.php';
+require_once 'database_connecting.php'; // ajout connexion bdd
+// si la session existe pas soit si l'on est pas connecté on redirige
+if (!isset($_SESSION['user'])) {
+    header('Location:index.php');
+    die();
+}
+
+// On récupere les données de l'utilisateur
+$req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
+$req->execute(array($_SESSION['user']));
+$data = $req->fetch();
+
+
 require_once 'header.php';
 
 // Performing insert query execution

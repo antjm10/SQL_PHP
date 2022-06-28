@@ -24,7 +24,8 @@ if(isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password']
                 {
                     if($password == $password_retype)
                     {
-                        $password = hash('sha256', $password);
+                        $cost = ['cost' => 12];
+                        $password = password_hash($password, PASSWORD_BCRYPT, $cost);
                         $ip = $_SERVER['REMOTE_ADDR'];
 
                         $insert = $pdo->prepare('INSERT INTO registerUser(pseudo, email, password, ip, token)VALUES(:pseudo, :email, :password, :ip, :token)');
@@ -44,7 +45,7 @@ if(isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password']
 
 
 }
-?>
+
 
 
 
