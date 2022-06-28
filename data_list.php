@@ -6,6 +6,12 @@
 //        JOIN users U ON users_has_adresse.users_id_users = U.id_users");
 //        echo "{$row['first_name']} - {$row['last_name']} - {$row['birth_date']} - {$row['email']} - {$row['phone']} - {$row['civility']} - {$row['sex']}  - {$row['street']} - {$row['postal_code']} - {$row['city']} - {$row['name']} <br>";
 
+
+if (!isset($_SESSION['user'])) {
+    header('Location:index.php');
+    die();
+}
+
 require_once 'auth.php';
 require 'database_connecting.php';
 require_once 'header.php';?>
