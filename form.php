@@ -69,6 +69,8 @@ if (isset($_POST['submit'])) {
         'adresse_id_adresse' => $id_adresse]);
 
 
+    header('location: data_list.php');
+
 
 }
 
@@ -151,8 +153,37 @@ if (isset($_POST['submit'])) {
 
         </div>
 
+    </form>
+
+    <form action="form.php" method="post">
+        <h2>Events:</h2>
+        <div>
+            <label>
+                <input class="" type="text" name="event_name" placeholder="name">
+            </label>
+
+            <label>
+                <input class="" type="text" name="event_description" placeholder="description">
+            </label>
+
+            <label>
+                <input class="" type="date" name="event_start_time" placeholder="date_start">
+            </label>
+
+            <label>
+                <input class="" type="date" name="event_end_time" placeholder="date_end">
+            </label>
+
+
+
+        </div>
+
+
+
 
     </form>
+
+
     </body>
 
     </html>

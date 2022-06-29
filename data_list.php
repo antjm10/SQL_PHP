@@ -56,6 +56,7 @@ if(!isset($_SESSION['user'])){
                     <p class="title is-4"><?php echo "{$row['first_name']} {$row['last_name']}" ?></p>
                     <p class="subtitle is-6"><?php echo "{$row['email']}" ?></p>
                     <p><a href="details_user.php?id=<?php echo $row['id_users'] ?>">More details</a></p>
+
                     <p><a href="modify_user.php?id=<?php echo $row['id_users'] ?>">Edit</a></p>
                     <p><a href="delete_user.php?id=<?php echo $row['id_users'] ?>">Delete</a></p>
                 </div>

@@ -25,8 +25,12 @@ require_once 'auth.php';
 
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="form.php">Form</a>
+            <a class="navbar-item" href="form.php">Users form</a>
+            <a class="navbar-item" href="form_event.php">Events form</a>
             <a class="navbar-item" href="data_list.php">Users list</a>
+            <a class="navbar-item" href="">Events list</a>
+
+
         </div>
 
         <div class="navbar-end">
