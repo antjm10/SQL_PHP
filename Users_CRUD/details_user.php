@@ -1,7 +1,7 @@
 <?php
 
-require 'database_connecting.php';
-require_once 'header.php';?>
+require '../database_connecting.php';
+require_once '../header.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

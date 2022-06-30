@@ -4,10 +4,10 @@
 //phpinfo();
 
 session_start();
-require_once 'database_connecting.php'; // ajout connexion bdd
+require_once '../database_connecting.php'; // ajout connexion bdd
 // si la session existe pas soit si l'on est pas connecté on redirige
 if (!isset($_SESSION['user'])) {
-    header('Location:index.php');
+    header('Location:../index.php');
     die();
 }
 
@@ -17,7 +17,7 @@ $req->execute(array($_SESSION['user']));
 $data = $req->fetch();
 
 
-require_once 'header.php';
+require_once '../header.php';
 
 // Performing insert query execution
 
@@ -86,7 +86,7 @@ if (isset($_POST['submit'])) {
         <title>GFG- Store Data</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="php" href="data_list.php">
-        <link rel="stylesheet" href="stylesheet.css">
+        <link rel="stylesheet" href="../stylesheet.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     </head>
 

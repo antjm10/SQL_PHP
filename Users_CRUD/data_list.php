@@ -7,11 +7,11 @@
 //        echo "{$row['first_name']} - {$row['last_name']} - {$row['birth_date']} - {$row['email']} - {$row['phone']} - {$row['civility']} - {$row['sex']}  - {$row['street']} - {$row['postal_code']} - {$row['city']} - {$row['name']} <br>";
 
 session_start();
-require_once 'database_connecting.php'; // ajout connexion bdd
-require_once 'header.php';
+require_once '../database_connecting.php'; // ajout connexion bdd
+require_once '../header.php';
 // si la session existe pas soit si l'on est pas connecté on redirige
 if(!isset($_SESSION['user'])){
-    header('Location:index.php');
+    header('Location:../index.php');
     die();
 }
 

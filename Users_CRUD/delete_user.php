@@ -5,15 +5,15 @@
     <title>supprimer des données en PHP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="php" href="data_list.php">
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="../stylesheet.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 
 
 <?php
 //connection au serveur:
-require_once 'database_connecting.php';
-require_once 'header.php';?>
+require_once '../database_connecting.php';
+require_once '../header.php';?>
 
 <?php
 
@@ -141,7 +141,7 @@ if (isset($_POST['delete'])) {
 
             <button type="submit" name="delete" class="JSP button is-link">Oui</button>
 
-            <a href="index.php">
+            <a href="../index.php">
             <button type="button" name="back" value="index.php" class="JSP button is-link">non</button>
             </a>
 

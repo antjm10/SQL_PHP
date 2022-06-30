@@ -3,15 +3,15 @@
     <title>modification de données en PHP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="php" href="data_list.php">
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="../stylesheet.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 
 
 <?php
 //connection au serveur:
-require_once 'database_connecting.php';
-require_once 'header.php';
+require_once '../database_connecting.php';
+require_once '../header.php';
 
 
 //sélection de la base de données:
@@ -183,7 +183,7 @@ $result = $requete->fetch();
                    value="<?php echo $result['name'] ?>"><br>
         </label>
 
-        <a href="index.php">
+        <a href="../index.php">
             <button type="submit" name="submit" class="JSP button is is-link">soumettre</button>
         </a>
 
