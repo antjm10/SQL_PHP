@@ -22,23 +22,7 @@ require_once '../header.php';
 
 ?>
 
-<?php
 
-$requete = $pdo->prepare("SELECT *
-            FROM users
-            join users_has_adresse uha on users.id_users = uha.users_id_users
-            join adresse a on a.id_adresse = uha.adresse_id_adresse
-            join countries c on a.countries_id_countries = c.id_countries
-	        WHERE id_users = :id_users");
-
-$requete->execute(['id_users' => $_GET['id']]);
-
-
-//affichage des données:
-$result = $requete->fetch();
-
-
-?>
 
 
 <?php

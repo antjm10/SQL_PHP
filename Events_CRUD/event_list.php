@@ -47,8 +47,8 @@ if(!isset($_SESSION['user'])){
                         <p class="title is-4"><?php echo "{$row['name']}" ?></p>
                         <p><a href="../Events_CRUD/details_event.php?id=<?php echo $row['id_events'] ?>">More details</a></p>
 
-                        <p><a href="../Events_CRUD/modify_user.php?id=<?php echo $row['id_events'] ?>">Edit</a></p>
-                        <p><a href="../Events_CRUD/delete_user.php?id=<?php echo $row['id_events'] ?>">Delete</a></p>
+                        <p><a href="../Events_CRUD/modify_event.php?id=<?php echo $row['id_events'] ?>">Edit</a></p>
+                        <p><a href="../Events_CRUD/delete_event.php?id=<?php echo $row['id_events'] ?>">Delete</a></p>
                     </div>
                 </div>
 
