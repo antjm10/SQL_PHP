@@ -23,17 +23,43 @@ if (isset($_POST['submit'])) {
 
 // Events
 
-    $sql = $pdo->prepare("INSERT INTO events (name, description, start_time, end_time)
-                VALUES (:name, :description, :start_time, :end_time)");
-    $sql->execute([
+    // On récupere les données de l'utilisateur
+    $req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
+    $req->execute(array($_SESSION['user']));
+    $data = $req->fetch();
+
+    echo $data['id'];
+    var_dump('hello');
+
+    // Tester requète non préparée
+    //
+
+    $sql = $pdo->prepare("INSERT INTO events (name, description, start_time, end_time, id_registerUser)
+                VALUES (:name, :description, :start_time, :end_time, :id_registerUser)");
+    $datas = [
         'name' => $_POST['event_name'],
         'description' => $_POST['event_description'],
         'start_time' => $_POST['event_start_time'],
-        'end_time' => $_POST['event_end_time']
-    ]);
+        'end_time' => $_POST['event_end_time'],
+        'id_registerUser' => $data['id']
+    ];
+
+
+    ?><pre><?php
+    var_dump($datas);
+
+    ?> </pre><?php
+
+    $sql->execute($datas);
     $id_events = $pdo->lastInsertId();
 
+
+
+
 }
+
+
+
 ?>
 
 
@@ -79,6 +105,9 @@ if (isset($_POST['submit'])) {
             </label>
 
             <button type="submit" name="submit" class="button is-link">soumettre</button>
+
+
+            <input type="text" name="pseudo" placeholder="confirmé votre pseudo">
 
 
         </div>

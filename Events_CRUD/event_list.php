@@ -46,9 +46,14 @@ if(!isset($_SESSION['user'])){
                     <div class="media-content">
                         <p class="title is-4"><?php echo "{$row['name']}" ?></p>
                         <p><a href="../Events_CRUD/details_event.php?id=<?php echo $row['id_events'] ?>">More details</a></p>
+                        <?php $id = $_GET['id']; ?>// get id through query string
+                        <?php if($_SESSION["id"]!==$id){// display error message if user is not same
+                                    echo "You need to delete your own record";
+                                    exit; }?>
 
-                        <p><a href="../Events_CRUD/modify_event.php?id=<?php echo $row['id_events'] ?>">Edit</a></p>
+                        <p><a href="../Events_CRUD/modify_event.php?id=<?php echo $row['id_events'] ?>">Edit</a></p>?>
                         <p><a href="../Events_CRUD/delete_event.php?id=<?php echo $row['id_events'] ?>">Delete</a></p>
+
                     </div>
                 </div>
 

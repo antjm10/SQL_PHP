@@ -10,6 +10,7 @@
 
 
 <?php
+session_start();
 //connection au serveur:
 require_once '../database_connecting.php';
 require_once '../header.php';
@@ -28,29 +29,35 @@ require_once '../header.php';
 
 <?php
 
-if (isset($_POST['submit'])) {
+    if (isset($_POST['submit'])) {
 
 
-
-    $sql = $pdo->prepare("UPDATE events
-                    SET name = :name,
-                    description = :description,
-                    start_time = :start_time,
-                    end_time = :end_time
-                    WHERE id_events = :id_events");
+        // On récupere les données de l'utilisateur
+        $req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
+        $req->execute(array($_SESSION['user']));
+        $data = $req->fetch();
 
 
-    $sql->execute([
-        'name' => $_POST['event_name'],
-        'description' => $_POST['event_description'],
-        'start_time' => $_POST['event_start_time'],
-        'end_time' => $_POST['event_end_time'],
-        'id_events' => $_GET['id']
-    ]);
+        $sql = $pdo->prepare("UPDATE events
+                        SET name = :name,
+                        description = :description,
+                        start_time = :start_time,
+                        end_time = :end_time
+                        WHERE id_events = :id_events");
 
-    header('Location: event_list.php');
 
-}
+        $sql->execute([
+            'name' => $_POST['event_name'],
+            'description' => $_POST['event_description'],
+            'start_time' => $_POST['event_start_time'],
+            'end_time' => $_POST['event_end_time'],
+            'id_events' => $_GET['id']
+        ]);
+
+        header('Location: event_list.php');
+
+    }
+
 
 $requete = $pdo->prepare("SELECT *
             FROM events

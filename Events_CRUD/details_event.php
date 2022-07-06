@@ -1,7 +1,8 @@
 <?php
-
 require '../database_connecting.php';
 require_once '../header.php';?>
+
+
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -18,8 +19,9 @@ require_once '../header.php';?>
 
 
 
-$stmt = $pdo->prepare('SELECT * FROM events
-                         WHERE id_events = :id_events');
+$stmt = $pdo->prepare("SELECT * FROM events
+                                        INNER JOIN registerUser rU on events.id_registerUser = rU.id
+                                        WHERE id_events = :id_events");
 
 $stmt->execute([
     'id_events' => $_GET['id']
@@ -43,6 +45,8 @@ $row = $stmt->fetch();
                         <p class="subtitle is-6"><?php echo $row['description']?></p>
                         <p class="subtitle is-6"><?php echo $row['start_time']?></p>
                         <p class="subtitle is-6"><?php echo $row['end_time']?></p>
+                        <p class="subtitle is-6">Crée par <?php echo $row['pseudo']?></p>
+
                     </div>
                 </div>
             </div>
