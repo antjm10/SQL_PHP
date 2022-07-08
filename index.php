@@ -61,6 +61,8 @@
     </form>
     <p class="text-center"><a href="register.php">Inscription</a></p>
 </div>
+
+<p>Veillez a vous souvenir du mot de passe parce que un système de mot de passe oublié n'est pas mis sur ce site</p>
 <style>
     .login-form {
         width: 340px;
@@ -82,6 +84,9 @@
     .btn {
         font-size: 15px;
         font-weight: bold;
+    }
+    p {
+        text-align: center;
     }
 </style>
 </body>

@@ -10,6 +10,12 @@ if(!isset($_SESSION['user'])){
 }
 
 
+    $stmt = $pdo->prepare('SELECT * FROM events');
+    $stmt->execute()
+    ?>
+    <?php while ($row = $stmt->fetch()) {
+
+
 
 ?>
 
@@ -25,13 +31,7 @@ if(!isset($_SESSION['user'])){
 </head>
 <body>
 <div id="results">
-    <?php
-    $stmt = $pdo->prepare('SELECT * FROM events');
-    $stmt->execute();
-    ?>
-    <?php while ($row = $stmt->fetch()) {
 
-        ?>
 
         <div class="card">
             <div class="card-image">
@@ -46,10 +46,8 @@ if(!isset($_SESSION['user'])){
                     <div class="media-content">
                         <p class="title is-4"><?php echo "{$row['name']}" ?></p>
                         <p><a href="../Events_CRUD/details_event.php?id=<?php echo $row['id_events'] ?>">More details</a></p>
-
-                        <p><a href="../Events_CRUD/modify_event.php?id=<?php echo $row['id_events'] ?>">Edit</a></p>?>
+                        <p><a href="../Events_CRUD/modify_event.php?id=<?php echo $row['id_events'] ?>">Edit</a></p>
                         <p><a href="../Events_CRUD/delete_event.php?id=<?php echo $row['id_events'] ?>">Delete</a></p>
-
                     </div>
                 </div>
 

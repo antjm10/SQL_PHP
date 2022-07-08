@@ -9,6 +9,7 @@
 
 
 <?php
+session_start();
 //connection au serveur:
 require_once '../database_connecting.php';
 require_once '../header.php';?>
@@ -18,6 +19,11 @@ require_once '../header.php';?>
 
 //récupération de la variable d'URL,
 //qui va nous permettre de savoir quel enregistrement modifier
+
+// On récupere les données de l'utilisateur
+$req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
+$req->execute(array($_SESSION['user']));
+$data = $req->fetch();
 
 
 //requête SQL:
@@ -39,19 +45,7 @@ $result = $requete->fetch();
 if (isset($_POST['delete'])) {
 
 
-    $sql = $pdo->prepare("DELETE 
-                FROM users_has_adresse 
-                WHERE users_id_users = :users_id_users AND adresse_id_adresse = :adresse_id_adresse");
-    $sql->execute(['users_id_users' => $_GET['id'],
-        'adresse_id_adresse'=> $result["id_adresse"]]);
 
-
-
-    $sql = $pdo->prepare("DELETE 
-            FROM adresse 
-            WHERE id_adresse = :id_adresse");
-    $sql->execute([
-        'id_adresse' => $result["id_adresse"]]);
 
 
 
@@ -67,7 +61,8 @@ if (isset($_POST['delete'])) {
 }
 
 ?>
-
+<?php
+if ($data['id'] === $result['id_registerUser']) {?>
 
 <div>
 
@@ -108,4 +103,6 @@ if (isset($_POST['delete'])) {
     </form>
 </div>
 
-
+<?php } else {
+    echo "You cannot remove other data user";
+}?>

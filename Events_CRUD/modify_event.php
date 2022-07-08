@@ -29,10 +29,16 @@ require_once '../header.php';
 
 <?php
 
+// On récupere les données de l'utilisateur
+$req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
+$req->execute(array($_SESSION['user']));
+$data = $req->fetch();
+
+
+
     if (isset($_POST['submit'])) {
 
-
-        // On récupere les données de l'utilisateur
+// On récupere les données de l'utilisateur
         $req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
         $req->execute(array($_SESSION['user']));
         $data = $req->fetch();
@@ -43,7 +49,7 @@ require_once '../header.php';
                         description = :description,
                         start_time = :start_time,
                         end_time = :end_time
-                        WHERE id_events = :id_events");
+                        WHERE id_events = :id_events AND id_registerUser = :id_registerUser");
 
 
         $sql->execute([
@@ -51,12 +57,14 @@ require_once '../header.php';
             'description' => $_POST['event_description'],
             'start_time' => $_POST['event_start_time'],
             'end_time' => $_POST['event_end_time'],
-            'id_events' => $_GET['id']
+            'id_events' => $_GET['id'],
+            'id_registerUser' => $data['id']
         ]);
 
         header('Location: event_list.php');
 
     }
+
 
 
 $requete = $pdo->prepare("SELECT *
@@ -70,11 +78,16 @@ $requete->execute(['id_events' => $_GET['id']]);
 $result = $requete->fetch();
 
 
+
+
+var_dump($data['id']);
+var_dump($id['id_registerUser']);
+var_dump($data['id'] === $result['id_registerUser']);
+
+if ($data['id'] === $result['id_registerUser']) {
+
 ?>
-
-
-
-<body>
+    <body>
 <form action="modify_event.php?id=<?php echo $_GET['id'] ?>" method="post">
 
     <h2 class=""></h2>
@@ -110,8 +123,15 @@ $result = $requete->fetch();
 </form>
 
 </body>
-
 </html>
+
+<?php } else {
+
+    echo "You need to delete your own record";
+}
+?>
+
+
 
 
 
