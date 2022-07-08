@@ -20,6 +20,11 @@ require_once '../header.php';?>
 //récupération de la variable d'URL,
 //qui va nous permettre de savoir quel enregistrement modifier
 
+// On récupere les données de l'utilisateur
+$req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
+$req->execute(array($_SESSION['user']));
+$data = $req->fetch();
+
 
 //requête SQL:
 //sélection de la base de données:
@@ -70,7 +75,9 @@ if (isset($_POST['delete'])) {
 
 }
 
-?>
+
+
+if ($data['id'] === $result['id_registerUser']) {?>
 
 
 <div>
@@ -149,5 +156,7 @@ if (isset($_POST['delete'])) {
 
     </form>
 </div>
-
+<?php } else {
+    echo "You cannot remove other data user";
+}?>
 

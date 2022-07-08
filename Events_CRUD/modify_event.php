@@ -80,10 +80,6 @@ $result = $requete->fetch();
 
 
 
-var_dump($data['id']);
-var_dump($id['id_registerUser']);
-var_dump($data['id'] === $result['id_registerUser']);
-
 if ($data['id'] === $result['id_registerUser']) {
 
 ?>

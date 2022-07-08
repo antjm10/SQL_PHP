@@ -51,15 +51,16 @@ if (isset($_POST['submit'])) {
     $id_adresse = $pdo->lastInsertId();
 
 
-    $sql = $pdo->prepare("INSERT INTO users (first_name, last_name, birth_date, email, phone, civility, sex) 
-                VALUES (:first_name, :last_name, :birth_date, :email, :phone, :civility, :sex)");
+    $sql = $pdo->prepare("INSERT INTO users (first_name, last_name, birth_date, email, phone, civility, sex, id_registerUser) 
+                VALUES (:first_name, :last_name, :birth_date, :email, :phone, :civility, :sex, :id_registerUser)");
     $sql->execute(['first_name' => $_POST['first_name'],
         'last_name' => $_POST['last_name'],
         'birth_date' => $_POST['birth_date'],
         'email' => $_POST['email'],
         'phone' => $_POST['phone'],
         'civility' => $_POST['civility'],
-        'sex' => $_POST['sex']]);
+        'sex' => $_POST['sex'],
+        'id_registerUser' => $data['id']]);
     $id_user = $pdo->lastInsertId();
 
 

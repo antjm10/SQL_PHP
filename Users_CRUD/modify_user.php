@@ -9,6 +9,7 @@
 
 
 <?php
+session_start();
 //connection au serveur:
 require_once '../database_connecting.php';
 require_once '../header.php';
@@ -26,6 +27,13 @@ require_once '../header.php';
 
 
 <?php
+
+// On récupere les données de l'utilisateur
+$req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
+$req->execute(array($_SESSION['user']));
+$data = $req->fetch();
+
+
 
 if (isset($_POST['submit'])) {
 
@@ -100,9 +108,10 @@ $requete->execute(['id_users' => $_GET['id']]);
 $result = $requete->fetch();
 
 
+
+if ($data['id'] === $result['id_registerUser']) {
+
 ?>
-
-
 
 <body>
 <form action="modify_user.php?id=<?php echo $_GET['id'] ?>" method="post">
@@ -179,6 +188,11 @@ $result = $requete->fetch();
 </body>
 
 </html>
+
+<?php } else {
+
+    echo "You need to delete your own record";
+}?>
 
 
 
