@@ -1,9 +1,9 @@
 
 <?php
     session_start();
-    require_once 'database_connecting.php'; // ajout connexion bdd
+    require_once 'database_connecting.php'; // add database connection
     require_once 'header.php';
-   // si la session existe pas soit si l'on est pas connecté on redirige
+   // if the session doesn't exist or if you are not connected we redirect
     if(!isset($_SESSION['user'])){
         header('Location:index.php');
         die();
@@ -29,26 +29,11 @@
   <body>
         <div class="container">
             <div class="col-md-12">
-                <?php
-                        if(isset($_GET['err'])){
-                            $err = htmlspecialchars($_GET['err']);
-                            switch($err){
-                                case 'current_password':
-                                    echo "<div class='alert alert-danger'>Le mot de passe actuel est incorrect</div>";
-                                break;
-
-                                case 'success_password':
-                                    echo "<div class='alert alert-success'>Le mot de passe a bien été modifié ! </div>";
-                                break;
-                            }
-                        }
-                    ?>
-
-
                 <div class="text-center">
-                        <h1 class="p-5">Bonjour <?php echo $data['pseudo']; ?> !</h1>
-                        <hr />
-                        <a href="logout.php" class="btn btn-danger btn-lg">Déconnexion</a>
+                    <h1 class="p-5">Bonjour <?php echo $data['pseudo']; ?> !</h1>
+                        <p>You can view the different pages by using the navbar</p>
+                    <hr />
+                    <a href="logout.php" class="btn btn-danger btn-lg">Disconnect</a>
                 </div>
             </div>
         </div>
