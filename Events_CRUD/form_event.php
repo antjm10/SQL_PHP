@@ -78,7 +78,7 @@ if (isset($_POST['submit'])) {
         <title>GFG- Store Data</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="php" href="../Users_CRUD/data_list.php">
-        <link rel="stylesheet" href="../stylesheet.css">
+        <link rel="stylesheet" href="../CSS/file_userForm.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     </head>
 

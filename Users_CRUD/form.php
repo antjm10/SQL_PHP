@@ -1,26 +1,16 @@
 <?php
-
-
-//phpinfo();
-
 session_start();
-require_once '../database_connecting.php'; // ajout connexion bdd
-// si la session existe pas soit si l'on est pas connecté on redirige
+require_once '../database_connecting.php'; // add database connection
+// if the session does not exist or if you are not connected, you are redirected
 if (!isset($_SESSION['user'])) {
     header('Location:../index.php');
     die();
 }
 
-// On récupere les données de l'utilisateur
-$req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
-$req->execute(array($_SESSION['user']));
-$data = $req->fetch();
-
-
 require_once '../header.php';
 
-// Performing insert query execution
 
+// if the button is pressed, execute all actions in it
 if (isset($_POST['submit'])) {
 
     $country = ucfirst(mb_strtolower(trim($_POST['country'])));
@@ -33,6 +23,7 @@ if (isset($_POST['submit'])) {
     if ($exitant_country) {
         $countryId = $exitant_country[0]["id_countries"];
     } else {
+        // Performing insert query execution
         $sql = $pdo->prepare("INSERT INTO countries (name)
                 VALUES (:name)");
         $sql->execute([
@@ -41,7 +32,14 @@ if (isset($_POST['submit'])) {
         $countryId = $pdo->lastInsertId('country');
     }
 
+// Retrieve the user's data from the current session
+    $req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
+    $req->execute(array($_SESSION['user']));
+    $data = $req->fetch();
 
+    require_once '../header.php';
+
+    // Performing insert query execution
     $sql = $pdo->prepare("INSERT INTO adresse (street, postal_code, city, countries_id_countries)
                 VALUES (:street, :postal_code, :city, :countries_id_countries)");
     $sql->execute(['street' => $_POST['street'],
@@ -50,7 +48,7 @@ if (isset($_POST['submit'])) {
         'countries_id_countries' => $countryId]);
     $id_adresse = $pdo->lastInsertId();
 
-
+    // Performing insert query execution
     $sql = $pdo->prepare("INSERT INTO users (first_name, last_name, birth_date, email, phone, civility, sex, id_registerUser) 
                 VALUES (:first_name, :last_name, :birth_date, :email, :phone, :civility, :sex, :id_registerUser)");
     $sql->execute(['first_name' => $_POST['first_name'],
@@ -63,131 +61,104 @@ if (isset($_POST['submit'])) {
         'id_registerUser' => $data['id']]);
     $id_user = $pdo->lastInsertId();
 
-
+    // Performing insert query execution
     $sql = $pdo->prepare("INSERT INTO users_has_adresse (users_id_users, adresse_id_adresse)
                 VALUES (:users_id_users, :adresse_id_adresse)");
     $sql->execute(['users_id_users' => $id_user,
         'adresse_id_adresse' => $id_adresse]);
 
-
-    header('location: data_list.php');
-
+// after all the insertions, redirects to the page data_list.php
+header('location: data_list.php');
 
 }
-
-
-
-
 ?>
 
-    <!DOCTYPE html>
-    <html lang="en">
+<!-- form html -->
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <title>GFG- Store Data</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="php" href="data_list.php">
-        <link rel="stylesheet" href="../stylesheet.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    </head>
+<head>
+    <title>GFG- Store Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="php" href="data_list.php">
+    <link rel="stylesheet" href="../CSS/file_userForm.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
 
-    <body>
-    <h1 class="JSP">Storing Form data in Database</h1>
+<body>
 
-    <ul>
-        <li class="JSP"><a href="data_list.php">Users list</a></li>
-    </ul>
+    <div class="center">
 
-    <form action="form.php" method="post">
+        <h2 class="h2-title">User information </h2>
 
-        <h2 class="JSP">User:</h2>
+        <form class="col g-3" action="form.php" method="post">
+            <div class="col-md-3">
+                <label for="last_name" class="form-label">Last_name:</label>
+                <input type="text" name="last_name" class="form-control" id="inputLast_name" placeholder="last name">
+            </div>
+            <br>
+            <div class="col-md-3">
+                <label for="first_name" class="form-label">First_name:</label>
+                <input type="text" name="first_name" class="form-control" id="inputFirst_name" placeholder="first name">
+            </div>
+            <br>
+            <div class="col-md-3">
+                <label for="inputPassword4" class="form-label">Birth_date:</label>
+                <input type="date" name="birth_date" class="form-control" id="inputBirth_date" placeholder="birth date">
+            </div>
+            <br>
+            <div class="col-md-3">
+                <label for="inputEmail4" class="form-label">Email:</label>
+                <input type="email" name="email" class="form-control" id="inputEmail" placeholder="email">
+            </div>
+            <br>
+            <div class="col-md-3">
+                <label for="inputAddress" class="form-label">Phone:</label>
+                <input type="text" name="phone" class="form-control" id="inputAddress" placeholder="phone">
+            </div>
+            <br>
+            <div class="col-md-3">
+                <label for="inputAddress2" class="form-label">Civility:</label>
+                <input type="text" name="civility" class="form-control" id="inputAddress2" placeholder="civility">
+            </div>
+            <br>
+            <div class="col-md-3">
+                <label for="inputCity" class="form-label">Sex:</label>
+                <input type="text" name="sex" class="form-control" id="inputCity" placeholder="sex">
+            </div>
 
-        <div class="column is-4 is-offset-one-third">
-            <label for="last_name">
-                <input class="input" type="text" name="last_name" placeholder="entrez votre nom"><br>
-            </label>
+            <h2 class="h2-title">User address</h2>
 
-            <label for="first_name">
-                <input class="input" type="text" name="first_name" placeholder="entrez votre prenom"><br>
-            </label>
+            <div class="col-md-3">
+                <label for="inputCity" class="form-label">Street:</label>
+                <input type="text" name="street" class="form-control" id="inputCity" placeholder="street">
+            </div>
+            <br>
+            <div class="col-md-3">
+                <label for="inputCity" class="form-label">Postal_code:</label>
+                <input type="text" name="postal_code" class="form-control" id="inputCity" placeholder="postal code">
+            </div>
+            <br>
+            <div class="col-md-3">
+                <label for="inputCity" class="form-label">City:</label>
+                <input type="text" name="city" class="form-control" id="inputCity" placeholder="city">
+            </div>
+            <br>
+            <div class="col-md-3">
+                <label for="inputCity" class="form-label">Country:</label>
+                <input type="text" name="country" class="form-control" id="inputCity" placeholder="country">
+            </div>
+            <br>
+            <div class="col-12">
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
 
-            <label>
-                <input class="input" type="date" name="birth_date" placeholder="date de naissance"><br>
-            </label>
+    </div>
 
-            <label>
-                <input class="input" type="email" name="email" placeholder="addresse email"><br>
-            </label>
+</body>
 
-            <label>
-                <input class="input" type="text" name="phone" placeholder="numero de telephone"><br>
-            </label>
-
-            <label>
-                <input class="input" type="text" name="civility" placeholder="entrez votre civilité"><br>
-            </label>
-
-            <label>
-                <input class="input" type="text" name="sex" placeholder="entrer votre genre"><br>
-            </label>
-
-            <h2 class="JSP">Adresse:</h2>
-
-            <label>
-                <input class="input" type="text" name="street" placeholder="rue"><br>
-            </label>
-
-            <label>
-                <input class="input" type="number" name="postal_code" placeholder="postal_code"><br>
-            </label>
-
-            <label>
-                <input class="input" type="text" name="city" placeholder="city"><br>
-            </label>
-
-            <label for="country">
-                <input class="input" type="text" name="country" placeholder="country"><br>
-            </label>
-
-
-            <button type="submit" name="submit" class="JSP button is-link">soumettre</button>
-
-        </div>
-
-    </form>
-
-    <form action="form.php" method="post">
-        <h2>Events:</h2>
-        <div>
-            <label>
-                <input class="" type="text" name="event_name" placeholder="name">
-            </label>
-
-            <label>
-                <input class="" type="text" name="event_description" placeholder="description">
-            </label>
-
-            <label>
-                <input class="" type="date" name="event_start_time" placeholder="date_start">
-            </label>
-
-            <label>
-                <input class="" type="date" name="event_end_time" placeholder="date_end">
-            </label>
-
-
-
-        </div>
-
-
-
-
-    </form>
-
-
-    </body>
-
-    </html>
+</html>
 
 
 
