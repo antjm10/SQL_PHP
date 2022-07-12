@@ -54,14 +54,14 @@
                 <input type="email" name="email" class="form-control" placeholder="Email" required="required" autocomplete="off">
             </div>
             <div class="form-group">
-                <input type="password" name="password" class="form-control" placeholder="Mot de passe" required="required" autocomplete="off">
+                <input type="password" name="password" class="form-control" placeholder="Password" required="required" autocomplete="off">
             </div>
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Connexion</button>
             </div>
         </form>
-        <p class="text-center"><a href="register.php">Inscription</a></p>
+        <p class="text-center">Don't have an account?<a href="register.php"> Sign up now</a></p>
     </div>
 
 <p>Please make sure you remember the password because a forgotten password system is not set up on this site</p>

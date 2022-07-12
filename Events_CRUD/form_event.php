@@ -79,39 +79,39 @@ if (isset($_POST['submit'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="php" href="../Users_CRUD/data_list.php">
         <link rel="stylesheet" href="../CSS/file_userForm.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
 
     <body>
 
 
-    <form action="form_event.php" method="post">
-        <h2>Events:</h2>
-        <div>
-            <label>
-                <input class="" type="text" name="event_name" placeholder="name">
-            </label>
-
-            <label>
-                <input class="" type="text" name="event_description" placeholder="description">
-            </label>
-
-            <label>
-                <input class="" type="date" name="event_start_time" placeholder="date_start">
-            </label>
-
-            <label>
-                <input class="" type="date" name="event_end_time" placeholder="date_end">
-            </label>
-
-            <button type="submit" name="submit" class="button is-link">soumettre</button>
-
-
-            <input type="text" name="pseudo" placeholder="confirmé votre pseudo">
-
+    <form class="col g-3" action="form_event.php" method="post">
+        <h2 class="h2-title">Events:</h2>
+        <div class="col-md-3">
+            <label class="form-label">Name:</label>
+                <input class="form-control" type="text" name="event_name" placeholder="name">
 
         </div>
+        <br>
+        <div class="col-md-3">
+            <label>Description:</label>
+                <input class="form-control" type="text" name="event_description" placeholder="description">
 
+        </div>
+        <br>
+        <div class="col-md-3">
+            <label>Start_time</label>
+            <input class="form-control" type="date" name="event_start_time" placeholder="date_start">
+        </div>
+        <br>
+        <div class="col-md-3">
+            <label>End_time</label>
+            <input class="form-control" type="date" name="event_end_time" placeholder="date_end">
+        </div>
+        <br>
+        <div class="col-12">
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+        </div>
 
 
 
