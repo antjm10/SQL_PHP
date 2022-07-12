@@ -13,6 +13,7 @@
 <body>
 <div class="login-form">
     <?php
+    // verifying register errors
     if(isset($_GET['reg_err']))
     {
         $err = htmlspecialchars($_GET['reg_err']);
@@ -67,7 +68,7 @@
         }
     }
     ?>
-
+    <!-- register connection input -->
     <form action="register_traitement.php" method="post">
         <h2 class="text-center">Inscription</h2>
         <div class="form-group">
