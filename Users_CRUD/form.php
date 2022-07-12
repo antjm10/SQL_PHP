@@ -9,8 +9,7 @@ if (!isset($_SESSION['user'])) {
 
 require_once '../header.php';
 
-
-// if the button is pressed, execute all actions in it
+// if the button submit is pressed, execute all actions in it
 if (isset($_POST['submit'])) {
 
     $country = ucfirst(mb_strtolower(trim($_POST['country'])));
@@ -67,8 +66,8 @@ if (isset($_POST['submit'])) {
     $sql->execute(['users_id_users' => $id_user,
         'adresse_id_adresse' => $id_adresse]);
 
-// after all the insertions, redirects to the page data_list.php
-header('location: data_list.php');
+    // after all the insertions, redirects to the page data_list.php
+    header('location: data_list.php');
 
 }
 ?>
@@ -87,9 +86,7 @@ header('location: data_list.php');
 
 <body>
 
-    <div class="center">
-
-        <h2 class="h2-title">User information </h2>
+    <h2 class="h2-title">User information </h2>
 
         <form class="col g-3" action="form.php" method="post">
             <div class="col-md-3">
@@ -153,8 +150,6 @@ header('location: data_list.php');
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
-
-    </div>
 
 </body>
 
