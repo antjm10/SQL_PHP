@@ -1,8 +1,5 @@
 <?php
 
-
-//phpinfo();
-
 session_start();
 require_once '../database_connecting.php'; // ajout connexion bdd
 // si la session existe pas soit si l'on est pas connecté on redirige
@@ -67,10 +64,6 @@ if (isset($_POST['submit'])) {
 
 
 
-
-
-
-
 <!DOCTYPE html>
     <html lang="en">
 
@@ -78,7 +71,7 @@ if (isset($_POST['submit'])) {
         <title>GFG- Store Data</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="php" href="../Users_CRUD/data_list.php">
-        <link rel="stylesheet" href="../CSS/file_userForm.css">
+        <link rel="stylesheet" href="../CSS/file_form.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
 

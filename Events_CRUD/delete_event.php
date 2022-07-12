@@ -3,7 +3,7 @@
     <title>supprimer des données en PHP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="php" href="data_list.php">
-    <link rel="stylesheet" href="../CSS/file_userForm.css">
+    <link rel="stylesheet" href="../CSS/file_form.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 

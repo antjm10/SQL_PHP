@@ -81,7 +81,7 @@ header('location: data_list.php');
     <title>GFG- Store Data</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="php" href="data_list.php">
-    <link rel="stylesheet" href="../CSS/file_userForm.css">
+    <link rel="stylesheet" href="../CSS/file_form.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 
