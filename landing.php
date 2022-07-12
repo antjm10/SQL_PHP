@@ -31,7 +31,7 @@
             <div class="col-md-12">
                 <div class="text-center">
                     <h1 class="p-5">Bonjour <?php echo $data['pseudo']; ?> !</h1>
-                        <p>You can view the different pages by using the navbar</p>
+                        <p>You can view the different pages by using the navbar. You will be able to create a fake user and see it displayed on a page that lists all the fake users that the different users registered on the site have created as for the events</p>
                     <hr />
                     <a href="logout.php" class="btn btn-danger btn-lg">Disconnect</a>
                 </div>

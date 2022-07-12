@@ -1,5 +1,5 @@
 <?php
-session_start(); // demarrage de la session
-session_destroy(); // on détruit la/les session(s), soit si vous utilisez une autre session, utilisez de préférence le unset()
-header('Location:index.php'); // On redirige
+session_start(); // start of the session
+session_destroy(); // we destroy the session(s), or if you use another session, preferably use the unset()
+header('Location:index.php'); // We redirect
 die();

@@ -1,31 +1,31 @@
 <?php
-session_start(); // Démarrage de la session
-require_once 'database_connecting.php'; // On inclut la connexion à la base de données
+session_start(); // Start the session
+require_once 'database_connecting.php'; // We include the connection to the database
 
-if(!empty($_POST['email']) && !empty($_POST['password'])) // Si il existe les champs email, password et qu'il sont pas vident
+if(!empty($_POST['email']) && !empty($_POST['password'])) // If the email and password fields exist and are not empty
 {
     // Patch XSS
     $email = htmlspecialchars($_POST['email']);
     $password = htmlspecialchars($_POST['password']);
 
-    $email = strtolower($email); // email transformé en minuscule
+    $email = strtolower($email); // email transformed into lower case
 
-    // On regarde si l'utilisateur est inscrit dans la table utilisateurs
+    // We see if the user is registered in the users table
     $check = $pdo->prepare('SELECT pseudo, email, password, token FROM registerUser WHERE email = ?');
     $check->execute(array($email));
     $data = $check->fetch();
     $row = $check->rowCount();
 
-    // Si > à 0 alors l'utilisateur existe
+    // If > 0 then the user exists
     if($row > 0)
     {
-        // Si le mail est bon niveau format
+        // If the mail is good in format
         if(filter_var($email, FILTER_VALIDATE_EMAIL))
         {
-            // Si le mot de passe est le bon
+            // If the password is correct
             if(password_verify($password, $data['password']))
             {
-                // On créer la session et on redirige sur landing.php
+                // We create the session and we redirect to landing.php
                 $_SESSION['user'] = $data['token'];
                 header('Location: landing.php');
             }else{ header('Location: index.php?login_err=password');
@@ -36,5 +36,5 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) // Si il existe les ch
     }
 }else{ header('Location: index.php');
 }
-die(); // si le formulaire est envoyé sans aucune données
+die(); // if the form is sent without any data
 

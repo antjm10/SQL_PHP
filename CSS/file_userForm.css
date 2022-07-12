@@ -1,17 +1,13 @@
 
-
 .h2-title {
     margin-top: 50px;
+    text-align: center;
+    text-decoration: underline;
 }
 
 button {
     background-color: blue;
     color: aliceblue;
-}
-
-h2{
-    text-align: center;
-    text-decoration: underline;
 }
 
 form{
@@ -21,4 +17,5 @@ form{
 }
 
 .col-12 {
-    text-align: center}
+    text-align: center
+}
