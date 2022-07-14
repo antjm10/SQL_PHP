@@ -1,16 +1,5 @@
-
-
-<html lang="">
-<head>
-    <title>supprimer des données en PHP</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="php" href="data_list.php">
-    <link rel="stylesheet" href="../CSS/file_form.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-</head>
-
-
 <?php
+session_start();
 //connection au serveur:
 require_once '../database_connecting.php';
 require_once '../header.php';?>
@@ -28,18 +17,7 @@ $data = $req->fetch();
 
 //requête SQL:
 //sélection de la base de données:
-$requete = $pdo->prepare("SELECT *
-            FROM users
-            join users_has_adresse uha on users.id_users = uha.users_id_users
-            join adresse a on a.id_adresse = uha.adresse_id_adresse
-            join countries c on a.countries_id_countries = c.id_countries
-	        WHERE id_users = :id_users");
-//exécution de la requête:
-$requete->execute(['id_users' => $_GET['id']]);
 
-
-//affichage des données:
-$result = $requete->fetch();
 
 ?>
 
@@ -76,86 +54,111 @@ if (isset($_POST['delete'])) {
 }
 
 
+$requete = $pdo->prepare("SELECT *
+            FROM users
+            join users_has_adresse uha on users.id_users = uha.users_id_users
+            join adresse a on a.id_adresse = uha.adresse_id_adresse
+            join countries c on a.countries_id_countries = c.id_countries
+	        WHERE id_users = :id_users");
+//exécution de la requête:
+$requete->execute(['id_users' => $_GET['id']]);
+
+
+//affichage des données:
+$result = $requete->fetch();
+
 
 if ($data['id'] === $result['id_registerUser']) {?>
 
 
-<div>
 
-    <p>voulez vous vraiment supprimer vos données ?</p>
+<!-- form html -->
+<html lang="">
+<head>
+    <title>supprimer des données en PHP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="php" href="data_list.php">
+    <link rel="stylesheet" href="../CSS/file_form.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
 
+    <div>
+
+    <h2 class="h2-title">User information</h2>
 
     <form action="delete_user.php?id=<?php echo $_GET['id'] ?>" method="post">
 
-        <div class="column is-4 is-offset-one-third">
-            <label for="last_name">
-                <input class="input" type="text" name="last_name" placeholder="entrez votre nom"
-                       value="<?php echo $result['last_name'] ?>"><br>
-            </label>
+        <div class="col-md-3">
+            <label for="last_name" class="form-label">Last_name:</label>
+            <input type="text" name="last_name" class="form-control" id="inputLast_name" placeholder="last name" value="<?php echo $result['last_name'] ?>"><br>
+        </div>
 
-            <label for="first_name">
-                <input class="input" type="text" name="first_name" placeholder="entrez votre prenom"
-                       value="<?php echo $result['first_name'] ?>"><br>
-            </label>
+        <div class="col-md-3">
+            <label for="first_name" class="form-label">First_name:</label>
+            <input type="text" name="first_name" class="form-control" id="inputFirst_name" placeholder="first name" value="<?php echo $result['first_name'] ?>"><br>
+        </div>
 
-            <label>
-                <input class="input" type="date" name="birth_date" placeholder="date de naissance"
-                       value="<?php echo $result['birth_date'] ?>"><br>
-            </label>
+        <div class="col-md-3">
+            <label for="inputPassword4" class="form-label">Birth_date:</label>
+            <input type="date" name="birth_date" class="form-control" id="inputBirth_date" placeholder="birth date" value="<?php echo $result['birth_date'] ?>"><br>
+        </div>
 
-            <label>
-                <input class="input" type="email" name="email" placeholder="addresse email"
-                       value="<?php echo $result['email'] ?>"><br>
-            </label>
+        <div class="col-md-3">
+            <label for="inputEmail4" class="form-label">Email:</label>
+            <input type="email" name="email" class="form-control" id="inputEmail" placeholder="email" value="<?php echo $result['email'] ?>"><br>
+        </div>
 
-            <label>
-                <input class="input" type="text" name="phone" placeholder="numero de telephone"
-                       value="<?php echo $result['phone'] ?>"><br>
-            </label>
+        <div class="col-md-3">
+            <label for="inputAddress" class="form-label">Phone:</label>
+            <input type="text" name="phone" class="form-control" id="inputAddress" placeholder="phone" value="<?php echo $result['phone'] ?>"><br>
+        </div>
 
-            <label>
-                <input class="input" type="text" name="civility" placeholder="entrez votre civilité"
-                       value="<?php echo $result['civility'] ?>"><br>
-            </label>
+        <div class="col-md-3">
+            <label for="inputAddress2" class="form-label">Civility:</label>
+            <input type="text" name="civility" class="form-control" id="inputAddress2" placeholder="civility" value="<?php echo $result['civility'] ?>"><br>
+        </div>
 
-            <label>
-                <input class="input" type="text" name="sex" placeholder="entrer votre genre"
-                       value="<?php echo $result['sex'] ?>"><br>
-            </label>
+        <div class="col-md-3">
+            <label for="inputCity" class="form-label">Sex:</label>
+            <input type="text" name="sex" class="form-control" id="inputCity" placeholder="sex" value="<?php echo $result['sex'] ?>"><br>
+        </div>
 
-            <h2 class="JSP">Adresse:</h2>
+        <h2 class="h2-title">User address</h2>
 
-            <label>
-                <input class="input" type="text" name="street" placeholder="rue"
-                       value="<?= $result['street'] ?>"><br>
-            </label>
+        <div class="col-md-3">
+            <label for="inputCity" class="form-label">Street:</label>
+            <input type="text" name="street" class="form-control" id="inputCity" placeholder="street" value="<?php echo $result['street'] ?>"><br>
+        </div>
 
-            <label>
-                <input class="input" type="number" name="postal_code" placeholder="postal_code"
-                       value="<?php echo $result['postal_code'] ?>"><br>
-            </label>
+        <div class="col-md-3">
+            <label for="inputCity" class="form-label">Postal_code:</label>
+            <input type="text" name="postal_code" class="form-control" id="inputCity" placeholder="postal code" value="<?php echo $result['postal_code'] ?>"><br>
+        </div>
 
-            <label>
-                <input class="input" type="text" name="city" placeholder="city"
-                       value="<?php echo $result['city'] ?>"><br>
-            </label>
+        <div class="col-md-3">
+            <label for="inputCity" class="form-label">City:</label>
+            <input type="text" name="city" class="form-control" id="inputCity" placeholder="city" value="<?php echo $result['city'] ?>"><br>
+        </div>
 
-            <label>
-                <input class="input" type="text" name="country" placeholder="country"
-                       value="<?php echo $result['name'] ?>"><br>
-            </label>
+        <div class="col-md-3">
+            <label for="inputCity" class="form-label">Country:</label>
+            <input type="text" name="country" class="form-control" id="inputCity" placeholder="country" value="<?php echo $result['name'] ?>"><br>
+        </div>
 
+        <p>voulez vous vraiment supprimer vos données ?</p>
 
-            <button type="submit" name="delete" class="JSP button is-link">Oui</button>
+        <div class="btn-group">
+        <button type="submit" name="delete" class="yes btn btn-primary">Oui</button>
 
-            <a href="../index.php">
-            <button type="button" name="back" value="index.php" class="JSP button is-link">non</button>
-            </a>
-
+        <a href="data_list.php">
+            <button type="button" name="back" value="data_list.php" class="no btn btn-primary">non</button>
+        </a>
         </div>
 
     </form>
 </div>
+
+</html>
 <?php } else {
     echo "You cannot remove other data user";
 }?>

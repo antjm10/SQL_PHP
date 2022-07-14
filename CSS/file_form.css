@@ -20,3 +20,16 @@ form{
 .col-12 {
     text-align: center
 }
+
+.btn {
+    margin-bottom: 50px;
+}
+
+p {
+    text-align: center;
+    font-size: 20px;
+}
+
+.yes {
+    margin-right: 50px;
+}
