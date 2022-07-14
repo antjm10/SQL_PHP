@@ -18,6 +18,19 @@ $data = $req->fetch();
 //requête SQL:
 //sélection de la base de données:
 
+$requete = $pdo->prepare("SELECT *
+            FROM users
+            join users_has_adresse uha on users.id_users = uha.users_id_users
+            join adresse a on a.id_adresse = uha.adresse_id_adresse
+            join countries c on a.countries_id_countries = c.id_countries
+	        WHERE id_users = :id_users");
+//exécution de la requête:
+$requete->execute(['id_users' => $_GET['id']]);
+
+
+//affichage des données:
+$result = $requete->fetch();
+
 
 ?>
 
@@ -44,28 +57,18 @@ if (isset($_POST['delete'])) {
 
     $sql = $pdo->prepare("DELETE 
                     FROM users 
-                    WHERE id_users = :id_user ");
+                    WHERE id_users = :id_users ");
     $sql->execute([
-        'id_user' => $_GET['id']
+        'id_users' => $_GET['id']
     ]);
+
 
     header('Location: data_list.php');
 
 }
 
 
-$requete = $pdo->prepare("SELECT *
-            FROM users
-            join users_has_adresse uha on users.id_users = uha.users_id_users
-            join adresse a on a.id_adresse = uha.adresse_id_adresse
-            join countries c on a.countries_id_countries = c.id_countries
-	        WHERE id_users = :id_users");
-//exécution de la requête:
-$requete->execute(['id_users' => $_GET['id']]);
 
-
-//affichage des données:
-$result = $requete->fetch();
 
 
 if ($data['id'] === $result['id_registerUser']) {?>

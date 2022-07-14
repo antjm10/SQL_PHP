@@ -10,7 +10,7 @@ require_once '../header.php';?>
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-        <link rel="stylesheet" href="data.css">
+        <link rel="stylesheet" href="../CSS/file_details.css">
         <title>Events list</title>
     </head>
     <body>
@@ -32,7 +32,7 @@ $row = $stmt->fetch();
 
 ?>
 
-
+<h2>Details:</h2>
         <div class="box">
             <div class="card-image">
             </div>
@@ -41,11 +41,11 @@ $row = $stmt->fetch();
                     <div class="media-left">
                     </div>
                     <div class="media-content">
-                        <p class="title is-4"><?php echo $row['name']?></p>
-                        <p class="subtitle is-6"><?php echo $row['description']?></p>
-                        <p class="subtitle is-6"><?php echo $row['start_time']?></p>
-                        <p class="subtitle is-6"><?php echo $row['end_time']?></p>
-                        <p class="subtitle is-6">Crée par <?php echo $row['pseudo']?></p>
+                        <p class="subtitle is-6"><span>Event name: </span><?php echo $row['name']?></p>
+                        <p class="subtitle is-6"><span>Description: </span><?php echo $row['description']?></p>
+                        <p class="subtitle is-6"><span>Event start: </span><?php echo $row['start_time']?></p>
+                        <p class="subtitle is-6"><span>Event end: </span><?php echo $row['end_time']?></p>
+                        <p class="subtitle is-6"><span>Created by </span><?php echo $row['pseudo']?></p>
 
                     </div>
                 </div>

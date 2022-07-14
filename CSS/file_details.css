@@ -1,0 +1,20 @@
+.media-content {
+    text-align: center;
+}
+
+.subtitle span{
+    font-weight: bold;
+}
+
+.subtitle.is-6{
+    font-size: 20px;
+    line-height: 150px;
+}
+
+h2 {
+    font-size: 40px;
+    text-align: center;
+    text-decoration: underline;
+    margin-top: 50px;
+}
+
