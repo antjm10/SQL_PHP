@@ -14,6 +14,8 @@ session_start();
 //connection au serveur:
 require_once '../database_connecting.php';
 require_once '../header.php';
+require_once '../auth.php';
+
 
 
 //sélection de la base de données:
@@ -126,9 +128,10 @@ if ($data['id'] === $result['id_registerUser']) {
 
 <?php } else {
 
-    echo "You need to delete your own record";
-}
-?>
+    echo "<link rel='stylesheet' href='../CSS/file_modify_delete.css'>";
+    echo "<p class='remainder'>You cannot modify the data of another user. Please modify your own data !</p>";
+
+} ?>
 
 
 

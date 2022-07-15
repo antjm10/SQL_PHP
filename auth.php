@@ -1,17 +1,6 @@
 <?php
-/*
-function is_connect (): bool {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-    return !empty($_SESSION['connect']);
+// if the session doesn't exist or if you are not connected we redirect
+if(!isset($_SESSION['user'])){
+    header('Location:../index.php');
+    die();
 }
-
-function force_user_connect (): void {
-    if(!is_connect()) {
-        header('location login.php');
-        exit();
-    }
-
-}
-*/

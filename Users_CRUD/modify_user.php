@@ -3,6 +3,8 @@
 session_start();
 require_once '../database_connecting.php'; // add database connection
 require_once '../header.php';
+require_once '../auth.php';
+
 
 
 // Retrieve the user's data from the current session
@@ -100,6 +102,7 @@ if ($data['id'] === $result['id_registerUser']) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="php" href="data_list.php">
     <link rel="stylesheet" href="../CSS/file_form.css">
+    <link rel="stylesheet" href="../CSS/file_modify_delete.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 </head>
@@ -178,8 +181,10 @@ if ($data['id'] === $result['id_registerUser']) {
 
 <?php } else {
 
-    echo "You need to delete your own record";
-}?>
+    echo "<link rel='stylesheet' href='../CSS/file_modify_delete.css'>";
+    echo "<p class='remainder'>You cannot modify the data of another user. Please modify your own data !</p>";
+
+} ?>
 
 
 

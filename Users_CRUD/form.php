@@ -1,13 +1,9 @@
 <?php
 session_start();
 require_once '../database_connecting.php'; // add database connection
-// if the session does not exist or if you are not connected, you are redirected
-if (!isset($_SESSION['user'])) {
-    header('Location:../index.php');
-    die();
-}
-
 require_once '../header.php';
+require_once '../auth.php';
+
 
 // if the button submit is pressed, execute all actions in it
 if (isset($_POST['submit'])) {

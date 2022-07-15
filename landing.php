@@ -3,11 +3,7 @@
     session_start();
     require_once 'database_connecting.php'; // add database connection
     require_once 'header.php';
-   // if the session doesn't exist or if you are not connected we redirect
-    if(!isset($_SESSION['user'])){
-        header('Location:index.php');
-        die();
-    }
+    require_once 'auth.php';
 
     // Retrieve the user's data from the current session
     $req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');

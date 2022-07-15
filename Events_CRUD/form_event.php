@@ -2,11 +2,7 @@
 
 session_start();
 require_once '../database_connecting.php'; // add database connection
-// if the session does not exist or if you are not connected, you are redirected
-if (!isset($_SESSION['user'])) {
-    header('Location:../index.php');
-    die();
-}
+require_once '../auth.php';
 
 require_once '../header.php';
 

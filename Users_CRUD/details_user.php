@@ -1,7 +1,10 @@
 <?php
-
+session_start();
 require '../database_connecting.php';
-require_once '../header.php';?>
+require_once '../header.php';
+require_once '../auth.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

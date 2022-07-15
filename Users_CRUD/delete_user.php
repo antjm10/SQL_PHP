@@ -2,7 +2,9 @@
 session_start();
 //connection au serveur:
 require_once '../database_connecting.php';
-require_once '../header.php';?>
+require_once '../header.php';
+require_once '../auth.php';
+?>
 
 <?php
 
@@ -162,7 +164,10 @@ if ($data['id'] === $result['id_registerUser']) {?>
 </div>
 
 </html>
-<?php } else {
-    echo "You cannot remove other data user";
-}?>
 
+<?php } else {
+
+    echo "<link rel='stylesheet' href='../CSS/file_modify_delete.css'>";
+    echo "<p class='remainder'>You cannot delete the data of another user. Please delete your own data !</p>";
+
+} ?>
