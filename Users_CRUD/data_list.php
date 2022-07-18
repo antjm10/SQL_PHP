@@ -16,7 +16,7 @@ require_once '../auth.php';
 $row = $stmt->fetch()
 ?>
 
-<!-- display list user html -->
+<!-- display list users html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

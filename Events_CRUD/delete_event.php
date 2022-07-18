@@ -1,3 +1,46 @@
+
+<?php
+session_start();
+require_once '../database_connecting.php'; // add database connection
+require_once '../header.php';
+require_once '../auth.php';
+
+// Retrieve the user's data from the current session
+$req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
+$req->execute(array($_SESSION['user']));
+$data = $req->fetch();
+
+
+// query SELECT
+$requete = $pdo->prepare("SELECT *
+            FROM events
+	        WHERE id_events = :id_events");
+$requete->execute(['id_events' => $_GET['id']]);
+
+
+// display data
+$result = $requete->fetch();
+
+// if the button submit is pressed, execute all actions in it
+if (isset($_POST['delete'])) {
+
+    // Performing delete query execution
+    $sql = $pdo->prepare("DELETE 
+                    FROM events 
+                    WHERE id_events = :id_events ");
+    $sql->execute([
+        'id_events' => $_GET['id']
+    ]);
+
+    // after all the delete, redirects to the page data_list.php
+    header('Location: event_list.php');
+
+}
+
+// condition to know the user id of the current session corresponds to the id of the user who created this fake user
+if ($data['id'] === $result['id_registerUser']) {?>
+
+<!-- form html -->
 <html lang="">
 <head>
     <title>supprimer des données en PHP</title>
@@ -7,67 +50,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 
-
-<?php
-session_start();
-//connection au serveur:
-require_once '../database_connecting.php';
-require_once '../header.php';
-require_once '../auth.php';
-?>
-
-<?php
-
-//récupération de la variable d'URL,
-//qui va nous permettre de savoir quel enregistrement modifier
-
-// On récupere les données de l'utilisateur
-$req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
-$req->execute(array($_SESSION['user']));
-$data = $req->fetch();
-
-
-//requête SQL:
-//sélection de la base de données:
-$requete = $pdo->prepare("SELECT *
-            FROM events
-	        WHERE id_events = :id_events");
-//exécution de la requête:
-$requete->execute(['id_events' => $_GET['id']]);
-
-
-//affichage des données:
-$result = $requete->fetch();
-
-?>
-
-<?php
-
-if (isset($_POST['delete'])) {
-
-
-
-
-
-
-    $sql = $pdo->prepare("DELETE 
-                    FROM events 
-                    WHERE id_events = :id_events ");
-    $sql->execute([
-        'id_events' => $_GET['id']
-    ]);
-
-    header('Location: event_list.php');
-
-}
-
-?>
-<?php
-if ($data['id'] === $result['id_registerUser']) {?>
-
 <div>
-
-
     <form action="delete_event.php?id=<?php echo $_GET['id'] ?>" method="post">
 
         <h2 class="h2-title">Events:</h2>
@@ -101,12 +84,12 @@ if ($data['id'] === $result['id_registerUser']) {?>
                 <button type="button" name="back" value="data_list.php" class="no btn btn-primary">non</button>
             </a>
         </div>
-
     </form>
 </div>
 
 <?php } else {
 
+    // If the condition is not met, proceed as follows
     echo "<link rel='stylesheet' href='../CSS/file_modify_delete.css'>";
     echo "<p class='remainder'>You cannot delete the data of another user. Please delete your own data !</p>";
 

@@ -48,6 +48,7 @@ if (isset($_POST['delete'])) {
         'id_users' => $_GET['id']
     ]);
 
+    // after all the delete, redirects to the page data_list.php
     header('Location: data_list.php');
 
 }

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../database_connecting.php';
+require '../database_connecting.php'; // add database connection
 require_once '../header.php';
 require_once '../auth.php';
 
@@ -32,7 +32,6 @@ $row = $stmt->fetch();
 </head>
 <body>
 <div id="results">
-
 <h2>Details:</h2>
     <div class="box">
         <div class="card-image">
