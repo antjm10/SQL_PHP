@@ -15,7 +15,7 @@ require_once 'auth.php';
 </head>
 <body>
 
-
+<!-- nav -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
         <ul class="navbar-nav">
@@ -34,6 +34,7 @@ require_once 'auth.php';
         </ul>
     </div>
 
+    <!-- dropdown -->
     <div class="collapse navbar-collapse" id="navbar-list-4">
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
@@ -41,6 +42,7 @@ require_once 'auth.php';
                     <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle">
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="../profile.php">Profile</a>
                     <a class="dropdown-item" href="../logout.php">Log Out</a>
                 </div>
             </li>

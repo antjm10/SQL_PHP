@@ -20,7 +20,7 @@ require_once '../auth.php';
     <div id="results">
 <?php
 
-
+//
 
 $stmt = $pdo->prepare("SELECT * FROM events
                                         INNER JOIN registerUser rU on events.id_registerUser = rU.id

@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
         $countryId = $pdo->lastInsertId('country');
     }
 
-// Retrieve the user's data from the current session
+    // Retrieve the user's data from the current session
     $req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
     $req->execute(array($_SESSION['user']));
     $data = $req->fetch();
@@ -80,11 +80,11 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 
-<body>
+<body class="body">
 
     <h2 class="h2-title">User information </h2>
 
-        <form class="col g-3" action="form.php" method="post">
+        <form class="col g-3 form" action="form.php" method="post">
             <div class="col-md-3">
                 <label for="last_name" class="form-label">Last_name:</label>
                 <input type="text" name="last_name" class="form-control" id="inputLast_name" placeholder="last name">

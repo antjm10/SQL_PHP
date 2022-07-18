@@ -1,6 +1,17 @@
 .media-content {
     margin-top: 20px;
+
 }
  p span {
      font-weight: bold;
+ }
+
+ .body-list {
+     background: rgb(2,0,36);
+     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(78,94,142,1) 50%, rgba(36,36,36,1) 100%);
+ }
+
+ .media {
+     background: rgb(2,0,36);
+     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(78,94,142,1) 50%, rgba(36,36,36,1) 100%);
  }

@@ -1,62 +1,46 @@
 <?php
 session_start();
-//connection au serveur:
-require_once '../database_connecting.php';
+require_once '../database_connecting.php'; // add database connection
 require_once '../header.php';
 require_once '../auth.php';
-?>
 
-<?php
 
-//récupération de la variable d'URL,
-//qui va nous permettre de savoir quel enregistrement modifier
-
-// On récupere les données de l'utilisateur
+// Retrieve the user's data from the current session
 $req = $pdo->prepare('SELECT * FROM registerUser WHERE token = ?');
 $req->execute(array($_SESSION['user']));
 $data = $req->fetch();
 
-
-//requête SQL:
-//sélection de la base de données:
-
+// query SELECT
 $requete = $pdo->prepare("SELECT *
             FROM users
             join users_has_adresse uha on users.id_users = uha.users_id_users
             join adresse a on a.id_adresse = uha.adresse_id_adresse
             join countries c on a.countries_id_countries = c.id_countries
 	        WHERE id_users = :id_users");
-//exécution de la requête:
+// execution of the request
 $requete->execute(['id_users' => $_GET['id']]);
 
-
-//affichage des données:
+// display data
 $result = $requete->fetch();
 
-
-?>
-
-<?php
-
+// if the button submit is pressed, execute all actions in it
 if (isset($_POST['delete'])) {
 
-
+    // Performing delete query execution
     $sql = $pdo->prepare("DELETE 
                 FROM users_has_adresse 
                 WHERE users_id_users = :users_id_users AND adresse_id_adresse = :adresse_id_adresse");
     $sql->execute(['users_id_users' => $_GET['id'],
         'adresse_id_adresse'=> $result["id_adresse"]]);
 
-
-
+    // Performing delete query execution
     $sql = $pdo->prepare("DELETE 
             FROM adresse 
             WHERE id_adresse = :id_adresse");
     $sql->execute([
         'id_adresse' => $result["id_adresse"]]);
 
-
-
+    // Performing delete query execution
     $sql = $pdo->prepare("DELETE 
                     FROM users 
                     WHERE id_users = :id_users ");
@@ -64,18 +48,12 @@ if (isset($_POST['delete'])) {
         'id_users' => $_GET['id']
     ]);
 
-
     header('Location: data_list.php');
 
 }
 
-
-
-
-
+// condition to know the user id of the current session corresponds to the id of the user who created this fake user
 if ($data['id'] === $result['id_registerUser']) {?>
-
-
 
 <!-- form html -->
 <html lang="">
@@ -87,7 +65,7 @@ if ($data['id'] === $result['id_registerUser']) {?>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 
-    <div>
+<div>
 
     <h2 class="h2-title">User information</h2>
 
@@ -167,6 +145,7 @@ if ($data['id'] === $result['id_registerUser']) {?>
 
 <?php } else {
 
+    // If the condition is not met, proceed as follows
     echo "<link rel='stylesheet' href='../CSS/file_modify_delete.css'>";
     echo "<p class='remainder'>You cannot delete the data of another user. Please delete your own data !</p>";
 

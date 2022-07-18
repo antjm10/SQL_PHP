@@ -90,7 +90,7 @@ $requete->execute(['id_users' => $_GET['id']]);
 $result = $requete->fetch();
 
 
-
+// condition to know the user id of the current session corresponds to the id of the user who created this fake user
 if ($data['id'] === $result['id_registerUser']) {
 
 ?>

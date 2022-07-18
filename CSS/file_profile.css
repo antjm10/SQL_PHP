@@ -1,0 +1,19 @@
+.profile {
+    text-align: center;
+    margin-top: 50px;
+}
+
+p span {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 50px;
+}
+
+p {
+    color: #f7f7f7;
+}
+
+.body-profile {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(38,39,42,1) 50%, rgba(91,92,107,1) 100%);
+}
