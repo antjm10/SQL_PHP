@@ -8,12 +8,11 @@ require_once '../auth.php';
     $stmt = $pdo->prepare('SELECT * FROM users_has_adresse
                                  JOIN adresse A on users_has_adresse.adresse_id_adresse = A.id_adresse
                                  JOIN countries C on A.countries_id_countries = C.id_countries
-                                 JOIN users U on users_has_adresse.users_id_users = U.id_users
-                                 JOIN registerUser rU on rU.id = U.id_registerUser');
+                                 JOIN users U on users_has_adresse.users_id_users = U.id_users');
     $stmt->execute();
 
 //display data with the variable row:
-$row = $stmt->fetch()
+while ($row = $stmt->fetch()) {
 ?>
 
 <!-- display list users html -->
@@ -28,6 +27,7 @@ $row = $stmt->fetch()
     <title>Users list</title>
 </head>
 <body class="body-list">
+
     <div id="results">
         <div class="card">
             <div class="card-image">
@@ -43,7 +43,6 @@ $row = $stmt->fetch()
                         <p class="title is-4"><span>Full name: </span><?php echo "{$row['first_name']} {$row['last_name']}" ?></p>
                         <p class="subtitle is-6"><span>Email: </span><?php echo "{$row['email']}" ?></p>
                         <p><a href="details_user.php?id=<?php echo $row['id_users'] ?>">More details</a></p>
-
                         <p><a href="modify_user.php?id=<?php echo $row['id_users'] ?>">Edit</a></p>
                         <p><a href="delete_user.php?id=<?php echo $row['id_users'] ?>">Delete</a></p>
                     </div>
@@ -51,8 +50,20 @@ $row = $stmt->fetch()
             </div>
         </div>
     </div>
+
+
+
+    <?php } ?>
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
 

@@ -17,6 +17,16 @@ $stmt->execute([
 
 //display data with the variable row:
 $row = $stmt->fetch();
+
+// Query SELECT
+$stmt = $pdo->prepare('SELECT * FROM users                              
+                         WHERE id_users = :id_users');
+
+$stmt->execute([
+    'id_users' => $_GET['id']
+]);
+//display data table user with the variable user:
+$user = $stmt->fetch();
 ?>
 
 <!-- display details data html -->
@@ -42,7 +52,7 @@ $row = $stmt->fetch();
                 </div>
                 <div class="media-content">
                     <p class="subtitle is-6"><span>Full name: </span><?php echo $row['first_name'] . " " . $row['last_name'] ?></p>
-                    <p class="subtitle is-6"><span>Email: </span><?php echo $row['email']?></p>
+                    <p class="subtitle is-6"><span>Email: </span><?php echo $user['email']?></p>
                     <p class="subtitle is-6"><span>Birth date: </span><?php echo $row['birth_date']?></p>
                     <p class="subtitle is-6"><span>Phone: </span><?php echo $row['phone']?></p>
                     <p class="subtitle is-6"><span>Civility: </span> <?php echo $row['civility']?></p>

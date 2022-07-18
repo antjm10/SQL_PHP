@@ -9,7 +9,7 @@ require_once '../auth.php';
     $stmt->execute();
 
 //display data with the variable row:
-$row = $stmt->fetch()
+while ($row = $stmt->fetch()) {
 ?>
 
 <!-- display list events html -->
@@ -45,5 +45,6 @@ $row = $stmt->fetch()
         </div>
     </div>
     </div>
+    <?php } ?>
 </body>
 </html>
