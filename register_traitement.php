@@ -5,13 +5,13 @@ require_once 'database_connecting.php'; // We include the connection to the data
 // If the variables exist and they are not empty
 if(isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_retype']))
 {
-    // Patch XSS
+    // Patch XSS (Cross-site scripting (XSS) is a script injection attack on a web application that accepts input but improperly separates the data from the executable code before sending that input back to a user's browser)
     $pseudo = htmlspecialchars($_POST['pseudo']);
     $email = htmlspecialchars($_POST['email']);
     $password = htmlspecialchars($_POST['password']);
     $password_retype = htmlspecialchars($_POST['password_retype']);
 
-    // We check if the user exists
+    // We check if the user exists by its email to prevent a duplicate user
     $check = $pdo->prepare("SELECT pseudo, email, password FROM registerUser WHERE email = ?");
     $check->execute(array($email));
     $data = $check->fetch();

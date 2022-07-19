@@ -46,9 +46,7 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="../CSS/file_form.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
-
 <body>
-
     <form class="col g-3" action="form_event.php" method="post">
         <h2 class="h2-title">Events:</h2>
         <div class="col-md-3">
